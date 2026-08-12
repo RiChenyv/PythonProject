@@ -11,13 +11,13 @@ len(容器)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;统计容器的元素个数
 max(容器)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;统计容器的最大元素  
 min(容器)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同上，自行理解
 
-![totally](images/微信图片_20260812174848_388_1.jpg)
+![totally](../images/微信图片_20260812174848_388_1.jpg)
 
 ## 3.容器的通用转换：
 
 如图所示：
 
-![change](images/微信图片_20260812175243_390_1.jpg)
+![change](../images/微信图片_20260812175243_390_1.jpg)
 
 特殊情况：  
 字符串与字典转列表或元组或集合时，字符串被按单字符分开，字典仅保留key，丢弃value  
@@ -31,4 +31,4 @@ sorted(容器,[reverse = False])&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从小到大
 
 # 总结：
 
-![总结](images/totally.jpg)
+![总结](../images/totally.jpg)
