@@ -1,0 +1,10 @@
+my_str = "生新来迎中亡死次一在会我"
+my_str = my_str.replace("次", "|")
+my_str = my_str.replace("中", "|")
+my_str = my_str.replace("来", "|")
+my_str = my_str.split("|")
+print(my_str)
+print(my_str[0][1], end="")
+print(my_str[0][0])
+print(my_str[2][1], end="")
+print(my_str[2][0])
