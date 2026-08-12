@@ -1,1 +1,0 @@
-studay python
