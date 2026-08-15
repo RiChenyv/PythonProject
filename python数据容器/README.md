@@ -26,7 +26,7 @@ min(容器)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同上，自行理解
 ## 4.容器的通用排序功能：
 
 sorted(容器,[reverse = Ture])&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从大到小进行排序  
-sorted(容器,[reverse = False])&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从小到大进行排序  
+sorted(容器,[reverse = False])&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从小到大进行排序  
 注意：排序的结果会统统变成列表对象，reverse默认为False，即默认排序为正向排序（小到大）
 
 # 总结：
