@@ -1,10 +1,22 @@
-with open("D:\PythonProject\py的文件操作\write.txt", "w", encoding="utf-8") as f:
-    f.write("itrichenyv itcast pythn ")
-    f.write("itrihenyv itcst python ")
-    f.write("itricheyv itcas python ")
-    f.write("itricheny icast python ")
-
-with open("D:\PythonProject\py的文件操作\write.txt", "r", encoding="utf-8") as f:
-    num = f.read().count("python")
-    print(type(f.read()))
+f = open("D:\PythonProject\py的文件操作\write.txt", "w", encoding="utf-8")
+f.write("itrichenyv itcast pythn\n")
+f.write("itrihenyv itcst python\n")
+f.write("itricheyv itcas python\n")
+f.write("itricheny icast pythonnn ")
+f.close()
+f = open("D:\PythonProject\py的文件操作\write.txt", "r", encoding="utf-8")
+num = f.read().count("python")
+print(type(f.read()))
 print(num)
+f.close()
+f = open("D:\PythonProject\py的文件操作\write.txt", "r", encoding="utf-8")
+count = 0
+for line in f:
+    line = line.strip()
+    words = line.split()
+    count = count + words.count("python")
+
+print(type(line))
+print(type(words))
+print(count)
+f.close()
