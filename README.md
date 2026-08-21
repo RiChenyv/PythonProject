@@ -48,8 +48,11 @@ D:\PythonProject
 ├── 循环语句的运用/               # 🐾 循环语句
 │   ├── for循环/
 │   │   └── for输出乘法表.py       # for 输出九九乘法表
-│   └── While语句/
-│       └── 猜数.py               # while 猜数字小游戏
+│   ├── While语句/
+│   │   └── 猜数.py               # while 猜数字小游戏
+│   └── 循环中断/                  # break / continue 循环控制
+│       ├── 01_break.py           # break 跳出循环
+│       └── 02_continue.py        # continue 跳过本次
 │
 ├── 键盘输入/                     # ⌨️ 键盘输入（input 练习）
 ├── 字符串拓展/                   # 🔤 字符串拓展（方法练习）
