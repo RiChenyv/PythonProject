@@ -11,5 +11,6 @@ def CountMode(z, b):
 
 
 if __name__ == '__main__':
-    f = readMode("/test.txt")
+    f = readMode("D:/PythonProject/test.txt")
     print(f.readline())
+    f.close()
