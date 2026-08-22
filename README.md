@@ -110,6 +110,23 @@ D:\PythonProject
 │   ├── bill.txt / bill.txt.bak / bill_test.txt
 │   └── README.markdown           # 文件操作笔记
 │
+├── json的系统认识/                 # 📄 JSON 格式入门
+│   ├── json数据格式.py             # dumps / loads 互相转化
+│   └── Learnjson                   # JSON 学习笔记
+│
+├── json数据处理/                   # 📊 JSON 数据实战（新冠折线图）
+│   ├── 折线图开发.py               # ⭐ 三国新冠数据折线图
+│   ├── render.html                 # 生成的图表网页
+│   └── 原始数据/                   # 美日印三国原始 JSON 数据
+│
+├── 可视化案例/                     # 📈 pyecharts 可视化入门
+│   ├── 基础折线图.py               # 四步画出折线图
+│   ├── set_global_opts方法.py      # 全局配置项详解
+│   └── render.html                 # 生成的图表网页
+│
+├── 折线图开发/                     # 📐 折线图开发（预留目录）
+│   └── README.md                   # 预留说明
+│
 ├── error,mode,package的综合案例/ # 🧩 综合案例（错误+模块+包）
 │   ├── test.py                   # 综合调用测试
 │   └── my_utils/                 # 自建工具包
@@ -148,7 +165,13 @@ D:\PythonProject
 
 第 6 步：文件操作（读、写、追加）
 
-第 7 步：综合案例（把所学全部串起来！）
+第 7 步：JSON 与数据可视化
+  ├── json的系统认识 → JSON 格式与 dumps/loads
+  ├── json数据处理 → 三国新冠数据折线图实战
+  ├── 可视化案例 → pyecharts 入门
+  └── 折线图开发 → 预留练习目录
+
+第 8 步：综合案例（把所学全部串起来！）
 ```
 
 > 💡 建议按这个顺序学习，前面的内容是后面案例的基础喵～
@@ -169,6 +192,11 @@ D:\PythonProject
 自己动手封装了 `file_util.py`（文件工具）和 `str_util.py`（字符串工具），
 并通过 `__init__.py` 的 `from . import` 预导入 + `__all__` 控制导入范围，
 把模块与包的知识用到了实处喵！
+
+### ⭐ 三国新冠数据折线图（`json数据处理/折线图开发.py`）
+读取美、日、印三国 2022 年新冠 **JSON 数据**，用 pyecharts 批量绘制
+「确诊 / 新增 / 死亡」折线图，还能用 `Tab` 按钮切换对比，
+是 JSON 解析 + 文件读取 + 数据可视化的综合实战喵！
 
 ---
 
