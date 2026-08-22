@@ -8,11 +8,11 @@
     
 </head>
 <body >
-    <div id="b7bf4b288e2a4f729a5c2752a301b047" class="chart-container" style="width:900px; height:500px; "></div>
+    <div id="f89d0987bab24c4f81f13fe08f533816" class="chart-container" style="width:900px; height:500px; "></div>
     <script>
-        var chart_b7bf4b288e2a4f729a5c2752a301b047 = echarts.init(
-            document.getElementById('b7bf4b288e2a4f729a5c2752a301b047'), 'white', {renderer: 'canvas', locale: 'ZH'});
-        var option_b7bf4b288e2a4f729a5c2752a301b047 = {
+        var chart_f89d0987bab24c4f81f13fe08f533816 = echarts.init(
+            document.getElementById('f89d0987bab24c4f81f13fe08f533816'), 'white', {renderer: 'canvas', locale: 'ZH'});
+        var option_f89d0987bab24c4f81f13fe08f533816 = {
     "animation": true,
     "animationThreshold": 2000,
     "animationDuration": 1000,
@@ -74,7 +74,27 @@
             "data": [
                 "GDP"
             ],
-            "selected": {}
+            "selected": {},
+            "show": true,
+            "padding": 5,
+            "itemGap": 10,
+            "itemWidth": 25,
+            "itemHeight": 14,
+            "backgroundColor": "transparent",
+            "borderColor": "#ccc",
+            "borderRadius": 0,
+            "pageButtonItemGap": 5,
+            "pageButtonPosition": "end",
+            "pageFormatter": "{current}/{total}",
+            "pageIconColor": "#2f4554",
+            "pageIconInactiveColor": "#aaa",
+            "pageIconSize": 15,
+            "animationDurationUpdate": 800,
+            "selector": false,
+            "selectorPosition": "auto",
+            "selectorItemGap": 7,
+            "selectorButtonGap": 10,
+            "triggerEvent": false
         }
     ],
     "tooltip": {
@@ -165,9 +185,93 @@
             "animationEasingUpdate": "cubicOut",
             "animationDelayUpdate": 0
         }
-    ]
+    ],
+    "title": [
+        {
+            "show": true,
+            "text": "GDP\u5c55\u793a",
+            "target": "blank",
+            "subtarget": "blank",
+            "left": "center",
+            "top": "0%",
+            "padding": 5,
+            "itemGap": 10,
+            "textAlign": "auto",
+            "textVerticalAlign": "auto",
+            "triggerEvent": false
+        }
+    ],
+    "toolbox": {
+        "show": true,
+        "orient": "horizontal",
+        "itemSize": 15,
+        "itemGap": 10,
+        "left": "80%",
+        "feature": {
+            "saveAsImage": {
+                "type": "png",
+                "backgroundColor": "auto",
+                "connectedBackgroundColor": "#fff",
+                "show": true,
+                "pixelRatio": 1
+            },
+            "restore": {
+                "show": true
+            },
+            "dataView": {
+                "show": true,
+                "readOnly": false,
+                "backgroundColor": "#fff",
+                "textareaColor": "#fff",
+                "textareaBorderColor": "#333",
+                "textColor": "#000",
+                "buttonColor": "#c23531",
+                "buttonTextColor": "#fff"
+            },
+            "dataZoom": {
+                "show": true,
+                "title": {},
+                "icon": {},
+                "filterMode": "filter"
+            },
+            "magicType": {
+                "show": true,
+                "type": [
+                    "line",
+                    "bar",
+                    "stack",
+                    "tiled"
+                ],
+                "title": {},
+                "icon": {}
+            }
+        }
+    },
+    "visualMap": {
+        "show": true,
+        "type": "continuous",
+        "min": 0,
+        "max": 100,
+        "inRange": {
+            "color": [
+                "#50a3ba",
+                "#eac763",
+                "#d94e5d"
+            ]
+        },
+        "calculable": true,
+        "inverse": false,
+        "splitNumber": 5,
+        "hoverLink": true,
+        "orient": "vertical",
+        "padding": 5,
+        "showLabel": true,
+        "itemWidth": 20,
+        "itemHeight": 140,
+        "borderWidth": 0
+    }
 };
-        chart_b7bf4b288e2a4f729a5c2752a301b047.setOption(option_b7bf4b288e2a4f729a5c2752a301b047);
+        chart_f89d0987bab24c4f81f13fe08f533816.setOption(option_f89d0987bab24c4f81f13fe08f533816);
     </script>
 </body>
 </html>
