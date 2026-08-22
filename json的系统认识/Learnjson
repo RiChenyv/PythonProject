@@ -1,0 +1,6 @@
+#比如:
+{"name":"admin","age":18}
+[{"name":"admin","age":18},{"name":"admin","age":18},{"name":"admin","age":18}]
+#python与json转化：
+首先要import json
+再调用json.dumps()  json.loads()
