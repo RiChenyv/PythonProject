@@ -31,9 +31,9 @@ json的系统认识
 
 ### 2. 与 Python 互相转化（`json数据格式.py`）
 
-| 函数 | 作用 | 方向 |
-|------|------|------|
-| `json.dumps(数据)` | Python 数据 → JSON 字符串 | 🔴 py 出 |
+| 函数                | 作用                   | 方向      |
+|-------------------|----------------------|---------|
+| `json.dumps(数据)`  | Python 数据 → JSON 字符串 | 🔴 py 出 |
 | `json.loads(字符串)` | JSON 字符串 → Python 数据 | 🔵 py 入 |
 
 ```python
@@ -70,7 +70,7 @@ python与json转化：
 2. 📤 `json.dumps()`：Python 数据 → JSON 字符串
 3. 📥 `json.loads()`：JSON 字符串 → Python 数据
 4. 🌏 `ensure_ascii=False` 保留中文
-5. 🚀 进阶实战见 [`json数据处理/README.md`](../json数据处理/README.md)（用 json 数据画折线图）喵！
+5. 🚀 进阶实战见 [`json数据处理/README.md`](../折线图开发/README.md)（用 json 数据画折线图）喵！
 
 ---
 

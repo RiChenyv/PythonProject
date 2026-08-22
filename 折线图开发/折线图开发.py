@@ -46,7 +46,7 @@ line_add.add_xaxis(x_date)
 line_dead = Line()
 line_dead.add_xaxis(x_date)
 # 读取数据
-with open(r"D:\PythonProject\json数据处理\原始数据\totallynum.txt", "r", encoding="utf-8") as f:
+with open(r"/json数据处理/原始数据/totallynum.txt", "r", encoding="utf-8") as f:
     totally_num = json.loads(f.read())
     data_usa = totally_num["num_usa"]
     data_jp = totally_num["num_jp"]

@@ -26,10 +26,10 @@ pyecharts 最简流程，只有 **4 步**喵：
 ```python
 from pyecharts.charts import Line
 
-line = Line()                                  # 1. 创建图表对象
-line.add_xaxis(["中国", "美国", "英国"])        # 2. 添加 X 轴数据
-line.add_yaxis("GDP", [30, 20, 10])            # 3. 添加 Y 轴数据（一条线）
-line.render()                                  # 4. 生成网页图表
+line = Line()  # 1. 创建图表对象
+line.add_xaxis(["中国", "美国", "英国"])  # 2. 添加 X 轴数据
+line.add_yaxis("GDP", [30, 20, 10])  # 3. 添加 Y 轴数据（一条线）
+line.render()  # 4. 生成网页图表
 ```
 
 运行后会生成 `render.html`，浏览器打开就能看到交互式折线图喵！
@@ -38,12 +38,12 @@ line.render()                                  # 4. 生成网页图表
 
 `set_global_opts()` 用来设置图表的全局配置，本案例用到：
 
-| 配置项 | 作用 |
-|--------|------|
-| `TitleOpts` | 标题：`title` 标题文字、`pos_left` 位置、`pos_top` 顶部偏移 |
-| `LegendOpts` | 图例：`is_show=True` 显示图例 |
-| `ToolboxOpts` | 工具箱：保存图片、缩放等工具 |
-| `VisualMapOpts` | 视觉映射：颜色渐变表示数值大小 |
+| 配置项             | 作用                                           |
+|-----------------|----------------------------------------------|
+| `TitleOpts`     | 标题：`title` 标题文字、`pos_left` 位置、`pos_top` 顶部偏移 |
+| `LegendOpts`    | 图例：`is_show=True` 显示图例                       |
+| `ToolboxOpts`   | 工具箱：保存图片、缩放等工具                               |
+| `VisualMapOpts` | 视觉映射：颜色渐变表示数值大小                              |
 
 ```python
 line.set_global_opts(
@@ -76,7 +76,7 @@ line.set_global_opts(
 2. ⚙️ `set_global_opts()` 做全局美化
 3. 🖼️ `render()` 生成 `render.html`，浏览器即开即看
 4. 🚀 更大规模的实战（多国数据批量绘图）见
-   [`json数据处理/README.md`](../json数据处理/README.md) 喵！
+   [`json数据处理/README.md`](../折线图开发/README.md) 喵！
 
 ---
 
