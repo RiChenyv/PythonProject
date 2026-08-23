@@ -48,6 +48,7 @@ for year in sorted_year_list:
         # x加入国家name，y加入gdp数值
         x_data.append(country_gdp[0])
         y_data.append(country_gdp[1])
+
     # 创建柱状图
     bar = Bar()
     # 由于为横向柱状图，应逆置数据
