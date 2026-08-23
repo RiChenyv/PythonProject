@@ -21,10 +21,10 @@ images
 
 | 图片 | 内容 | 在哪个笔记中使用 |
 |------|------|------------------|
-| `totally.jpg` | 五大数据容器的**通用操作总结**（遍历/统计/转换/排序） | [`python数据容器/README.md`](../python数据容器/README.md) |
-| `微信图片_20260812174848_388_1.jpg` | 容器的**统计功能**（len / max / min） | [`python数据容器/README.md`](../python数据容器/README.md) |
-| `微信图片_20260812175243_390_1.jpg` | 容器的**通用转换**（list / tuple / set / str 互转） | [`python数据容器/README.md`](../python数据容器/README.md) |
-| `文件读取操作总结_01.jpg` | **文件读取**的完整流程总结（open / read / close） | [`py的文件操作/README.markdown`](../py的文件操作/README.markdown) |
+| `totally.jpg` | 五大数据容器的**通用操作总结**（遍历/统计/转换/排序） | [`06-数据容器/README.md`](../06-数据容器/README.md) |
+| `微信图片_20260812174848_388_1.jpg` | 容器的**统计功能**（len / max / min） | [`06-数据容器/README.md`](../06-数据容器/README.md) |
+| `微信图片_20260812175243_390_1.jpg` | 容器的**通用转换**（list / tuple / set / str 互转） | [`06-数据容器/README.md`](../06-数据容器/README.md) |
+| `文件读取操作总结_01.jpg` | **文件读取**的完整流程总结（open / read / close） | [`12-文件操作/README.markdown`](../12-文件操作/README.markdown) |
 
 ---
 

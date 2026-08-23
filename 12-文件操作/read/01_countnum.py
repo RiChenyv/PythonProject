@@ -1,0 +1,22 @@
+f = open("D:/PythonProject/12-文件操作/read/write.txt", "w", encoding="utf-8")
+f.write("itrichenyv itcast pythn\n")
+f.write("itrihenyv itcst python\n")
+f.write("itricheyv itcas python\n")
+f.write("itricheny icast pythonnn ")
+f.close()
+f = open("D:/PythonProject/12-文件操作/read/write.txt", "r", encoding="utf-8")
+num = f.read().count("python")
+print(type(f.read()))
+print(num)
+f.close()
+f = open("D:/PythonProject/12-文件操作/read/write.txt", "r", encoding="utf-8")
+count = 0
+for line in f:
+    line = line.strip()
+    words = line.split(" ")
+    count = count + words.count("python")
+
+print(type(line))
+print(type(words))
+print(count)
+f.close()

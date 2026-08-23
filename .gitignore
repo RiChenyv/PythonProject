@@ -1,0 +1,9 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 虚拟环境（本机开发用，不提交）
+.venv/
+
+# IDE 配置（个人习惯，不提交）
+.idea/
