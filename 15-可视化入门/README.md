@@ -76,7 +76,7 @@ line.set_global_opts(
 2. ⚙️ `set_global_opts()` 做全局美化
 3. 🖼️ `render()` 生成 `render.html`，浏览器即开即看
 4. 🚀 更大规模的实战（多国数据批量绘图）见
-   [`14-json原始数据/README.md`](../16-折线图开发/README.md) 喵！
+   [`16-折线图开发/README.md`](../16-折线图开发/README.md) 喵！
 
 ---
 
