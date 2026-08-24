@@ -7,6 +7,6 @@ class Record:
         self.money = money
         self.province = province
 
-    # 实现对类输出的魔术方法
+    # 实现对类输出的魔术方法（用于测试）
     def __str__(self):
         return f"{self.date},{self.ID},{self.money},{self.province}"
