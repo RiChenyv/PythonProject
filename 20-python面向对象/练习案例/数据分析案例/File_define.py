@@ -41,7 +41,7 @@ class TextReader(FileReader):
         return record_list
 
 
-"""读取二月份JSON文本的类"""
+"""读取二月份JSON文本的工具类"""
 
 
 class JsonReader(FileReader):

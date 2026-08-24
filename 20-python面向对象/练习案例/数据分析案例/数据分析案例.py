@@ -1,6 +1,6 @@
 # 使用面向对象的思想完成
 from pyecharts.charts import Bar
-from pyecharts.options import ToolboxOpts, TitleOpts, LabelOpts
+from pyecharts.options import ToolboxOpts, TitleOpts, LabelOpts, InitOpts
 
 from File_define import *
 from data_define import *
@@ -36,7 +36,7 @@ for record in all_data:
 可视化
 """
 # 创建柱状图对象
-bar = Bar()
+bar = Bar(init_opts=InitOpts(width="100%", height="80vh"))
 # 添加数据
 x_data = data_dict.keys()
 y_data = [round(value, 1) for value in data_dict.values()]  # 保留一位小数
