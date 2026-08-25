@@ -25,15 +25,15 @@ SQL入门和实战
 - **表（Table）**：数据库里存数据的二维结构（行 + 列）
 - **SQL（Structured Query Language）**：操作数据库的标准化语言
 
-### 2. 三大类 SQL 语言
+### 2. 五大类 SQL 语言
 
 | 分类 | 全称 | 作用 |
 |------|------|------|
 | **DDL** | Data Definition Language | 定义库、表结构（创建/修改/删除） |
 | **DML** | Data Manipulation Language | 操作数据（增/删/改） |
 | **DQL** | Data Query Language | 查询数据（查，最常用！） |
-
-> 💡 另外还有 DCL（权限控制）、TCL（事务控制）喵！
+| **DCL** | Data Control Language | 用户与权限控制（授权/收权） |
+| **TCL** | Transaction Control Language | 事务控制（提交/回滚） |
 
 ### 3. 连接 MySQL
 
@@ -342,7 +342,67 @@ ROLLBACK;
 
 ---
 
-## 🏆 八、实战案例
+## 🛡️ 八、DCL —— 用户与权限控制
+
+> 管理「谁能连数据库、能对哪些库表做什么」喵！只有 root 或超级管理员能执行喵！
+
+### 1. 用户管理
+
+```sql
+-- 查看所有用户（用户信息存在 mysql 库的 user 表里）
+USE mysql;
+SELECT user, host FROM user;
+
+-- 创建用户（'用户名'@'主机'，localhost 只允许本机，% 允许任意主机）
+CREATE USER 'richenyv'@'localhost' IDENTIFIED BY '123456';
+CREATE USER 'yuki'@'%' IDENTIFIED BY '123456';
+
+-- 修改密码
+ALTER USER 'richenyv'@'localhost' IDENTIFIED BY 'new_password';
+
+-- 删除用户
+DROP USER 'richenyv'@'localhost';
+```
+
+### 2. 权限控制
+
+```sql
+-- 授权：把 school 库所有表的 查询+插入 权限给用户
+GRANT SELECT, INSERT ON school.* TO 'richenyv'@'localhost';
+
+-- 授权：全部库全部权限（谨慎！相当于半个管理员）
+GRANT ALL PRIVILEGES ON *.* TO 'yuki'@'%';
+
+-- 授权后刷新权限（部分版本/场景需要）
+FLUSH PRIVILEGES;
+
+-- 查看用户的权限
+SHOW GRANTS FOR 'richenyv'@'localhost';
+
+-- 收回权限：把插入权限收回来
+REVOKE INSERT ON school.* FROM 'richenyv'@'localhost';
+
+-- 收回全部权限
+REVOKE ALL PRIVILEGES ON *.* FROM 'yuki'@'%';
+```
+
+### 3. 常用权限清单
+
+| 权限 | 作用 |
+|------|------|
+| `ALL PRIVILEGES` | 全部权限（最高） |
+| `SELECT` / `INSERT` / `UPDATE` / `DELETE` | 增删改查（最常用） |
+| `CREATE` / `DROP` / `ALTER` | 建删改表结构 |
+| `GRANT OPTION` | 允许用户再给别人授权 |
+
+> 💡 `ON 数据库.表` 的写法：
+> `school.*` 表示 school 库的所有表，`*.*` 表示所有库所有表喵！
+
+> 🐱 **最小权限原则**：给用户够用的最小权限就好，别动不动就 `ALL PRIVILEGES` 喵！
+
+---
+
+## 🏆 九、实战案例
 
 ### 🎓 案例 1：学生成绩管理
 
@@ -450,9 +510,38 @@ cursor.close()
 conn.close()
 ```
 
+### 🔐 案例 4：数据库账号与权限管理（DCL）
+
+> 给团队成员创建账号，按职责分配最小权限喵！
+
+```sql
+-- 1. 创建两个账号：开发账号（本机）、只读分析账号（任意主机）
+CREATE USER 'dev'@'localhost' IDENTIFIED BY 'dev123456';
+CREATE USER 'analyst'@'%' IDENTIFIED BY 'read123456';
+
+-- 2. 授权：开发账号对 school 库拥有增删改查
+GRANT SELECT, INSERT, UPDATE, DELETE ON school.* TO 'dev'@'localhost';
+
+-- 3. 授权：分析账号只能查，不能改！
+GRANT SELECT ON school.* TO 'analyst'@'%';
+
+-- 4. 刷新权限，让授权立即生效
+FLUSH PRIVILEGES;
+
+-- 5. 验证：查看每个账号的权限
+SHOW GRANTS FOR 'dev'@'localhost';
+SHOW GRANTS FOR 'analyst'@'%';
+
+-- 6. 人员离职 / 岗位调整：收回权限或删除账号
+REVOKE DELETE ON school.* FROM 'dev'@'localhost';
+DROP USER 'analyst'@'%';
+```
+
+> 🐱 案例要点：**开发给写权限、分析只给读权限**，就是最小权限原则的实践喵！
+
 ---
 
-## 📋 九、常用命令速查表
+## 📋 十、常用命令速查表
 
 | 场景 | 命令 |
 |------|------|
@@ -467,6 +556,11 @@ conn.close()
 | 模糊 | `WHERE 列 LIKE '%关键字%'` |
 | 连接 | `INNER/LEFT/RIGHT JOIN 表 ON 条件` |
 | 事务 | `START TRANSACTION; ... COMMIT; / ROLLBACK;` |
+| 建用户 | `CREATE USER '用户名'@'主机' IDENTIFIED BY '密码';` |
+| 授权 | `GRANT 权限 ON 库.表 TO '用户名'@'主机';` |
+| 收权 | `REVOKE 权限 ON 库.表 FROM '用户名'@'主机';` |
+| 查权限 | `SHOW GRANTS FOR '用户名'@'主机';` |
+| 删用户 | `DROP USER '用户名'@'主机';` |
 
 ---
 
@@ -478,6 +572,8 @@ conn.close()
 4. 📏 DQL 执行顺序：`FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT` 喵！
 5. 🐍 Python 连 MySQL 用 `pymysql`，写操作记得 `commit()` 喵！
 6. 🚧 备份好习惯：`mysqldump -u root -p 库名 > 备份.sql` 喵！
+7. 🔐 DCL 遵循**最小权限原则**，别随手 `ALL PRIVILEGES`；用户授权后记得 `FLUSH PRIVILEGES` 喵！
+8. 👤 `'用户'@'主机'` 是一对组合：`localhost` 只本机能连，`%` 任意主机能连喵！
 
 ---
 
