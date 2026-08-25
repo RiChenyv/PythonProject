@@ -49,26 +49,44 @@ mysql -u root -p
 
 ## 🏗️ 二、DDL —— 库与表的定义
 
+> 📌 **SQL 语法符号说明**（语法文档通用惯例喵！）：
+> - `[ ]` 方括号：**可选**部分，写不写都行喵！
+> - `|` 竖线：**或**，多选一（如 `ASC | DESC`）
+> - `...` 省略号：可**重复**（如多列 `列1, 列2, ...`）
+> - 中文占位符（如 `库名`、`表名`）：使用时替换成真实名字喵！
+
 ### 1. 数据库操作
 
 ```sql
+-- 📐 语法模板（[ ] 里的内容都可以省略喵！）
+CREATE DATABASE [IF NOT EXISTS] 库名 [DEFAULT CHARSET 字符集];
+
+-- ✅ 实际例子（三种写法从简到全）
+CREATE DATABASE school;                                        -- 最简：只写库名
+CREATE DATABASE IF NOT EXISTS school;                          -- 可选：已存在就不报错
+CREATE DATABASE IF NOT EXISTS school DEFAULT CHARSET utf8mb4;  -- 完整：指定编码（推荐）
+
 -- 查看所有数据库
 SHOW DATABASES;
-
--- 创建数据库（指定 utf8mb4 编码，支持中文和 emoji 喵！）
-CREATE DATABASE IF NOT EXISTS school DEFAULT CHARSET utf8mb4;
 
 -- 使用数据库
 USE school;
 
--- 删除数据库
+-- 删除数据库（[IF EXISTS] 也是可选的喵！）
+DROP DATABASE [IF EXISTS] 库名;
 DROP DATABASE IF EXISTS school;
 ```
 
 ### 2. 表操作
 
 ```sql
--- 创建表
+-- 📐 语法模板
+CREATE TABLE [IF NOT EXISTS] 表名 (
+    列名 数据类型 [约束] [COMMENT '说明'],
+    ...
+) [DEFAULT CHARSET 字符集];
+
+-- ✅ 实际例子
 CREATE TABLE student (
     id       INT PRIMARY KEY AUTO_INCREMENT COMMENT '学号',
     name     VARCHAR(20) NOT NULL COMMENT '姓名',
@@ -76,7 +94,7 @@ CREATE TABLE student (
     age      INT COMMENT '年龄',
     score    DECIMAL(5,2) COMMENT '成绩',
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
-);
+) DEFAULT CHARSET utf8mb4;
 
 -- 查看表结构
 DESC student;
@@ -86,8 +104,9 @@ ALTER TABLE student ADD COLUMN phone VARCHAR(11);
 ALTER TABLE student MODIFY COLUMN age TINYINT;
 ALTER TABLE student DROP COLUMN phone;
 
--- 重命名 / 删除表
+-- 重命名 / 删除表（[IF EXISTS] 可选喵！）
 RENAME TABLE student TO stu;
+DROP TABLE [IF EXISTS] 表名;
 DROP TABLE IF EXISTS stu;
 ```
 
@@ -111,10 +130,13 @@ DROP TABLE IF EXISTS stu;
 ### 1. 插入 INSERT
 
 ```sql
--- 指定列插入
+-- 📐 语法模板（列名列表可省略，省略就按所有列的顺序插喵！）
+INSERT INTO 表名 [(列1, 列2, ...)] VALUES (值1, 值2, ...);
+
+-- ✅ 指定列插入
 INSERT INTO student (name, gender, age, score) VALUES ('日辰羽', '男', 18, 95.5);
 
--- 批量插入
+-- 批量插入（多组 VALUES 用逗号隔开）
 INSERT INTO student (name, gender, age, score) VALUES
 ('richenyv', '男', 19, 92.0),
 ('cunriyang', '女', 19, 88.5),
@@ -124,7 +146,10 @@ INSERT INTO student (name, gender, age, score) VALUES
 ### 2. 修改 UPDATE
 
 ```sql
--- 更新指定行（⚠️ 不写 WHERE 会更新全表！）
+-- 📐 语法模板（⚠️ WHERE 不是 [ ] 可选项，是必选项喵！）
+UPDATE 表名 SET 列1 = 值1 [, 列2 = 值2, ...] [WHERE 条件];
+
+-- ✅ 更新指定行（⚠️ 不写 WHERE 会更新全表！）
 UPDATE student SET score = 100 WHERE name = 'yuki';
 
 -- 多列更新
@@ -134,14 +159,18 @@ UPDATE student SET age = age + 1, score = score + 5 WHERE id = 1;
 ### 3. 删除 DELETE
 
 ```sql
--- 删除指定行（⚠️ 不写 WHERE 会清空全表！）
+-- 📐 语法模板（⚠️ WHERE 建议必写！）
+DELETE FROM 表名 [WHERE 条件];
+
+-- ✅ 删除指定行（⚠️ 不写 WHERE 会清空全表！）
 DELETE FROM student WHERE id = 4;
 
--- 清空整张表（自增从 1 重新开始）
+-- 清空整张表（自增从 1 重新开始，不能带 WHERE）
 TRUNCATE TABLE student;
 ```
 
 > ⚠️ **UPDATE / DELETE 忘记 WHERE = 灾难**，一定要养成先 SELECT 看一眼的习惯喵！
+> 💡 语法模板里 `[WHERE 条件]` 加了方括号，但实际使用中**强烈建议必写**喵！
 
 ---
 
@@ -150,7 +179,16 @@ TRUNCATE TABLE student;
 ### 1. 基础查询
 
 ```sql
--- 查所有列
+-- 📐 语法模板（[] 全是可选项，最简就是 SELECT * FROM 表; 喵！）
+SELECT [DISTINCT] 列1 [, 列2, ...] | *
+FROM 表名
+[WHERE 条件]
+[GROUP BY 分组列]
+[HAVING 分组后条件]
+[ORDER BY 排序列 ASC | DESC]
+[LIMIT 条数];
+
+-- ✅ 查所有列
 SELECT * FROM student;
 
 -- 查指定列 + 别名
@@ -349,7 +387,12 @@ ROLLBACK;
 ### 1. 用户管理
 
 ```sql
--- 查看所有用户（用户信息存在 mysql 库的 user 表里）
+-- 📐 语法模板
+CREATE USER '用户名'@'主机' [IDENTIFIED BY '密码'];
+ALTER USER '用户名'@'主机' [IDENTIFIED BY '新密码'];
+DROP USER '用户名'@'主机';
+
+-- ✅ 查看所有用户（用户信息存在 mysql 库的 user 表里）
 USE mysql;
 SELECT user, host FROM user;
 
@@ -367,7 +410,12 @@ DROP USER 'richenyv'@'localhost';
 ### 2. 权限控制
 
 ```sql
--- 授权：把 school 库所有表的 查询+插入 权限给用户
+-- 📐 语法模板
+GRANT 权限列表 ON 库名.表名 TO '用户名'@'主机';
+REVOKE 权限列表 ON 库名.表名 FROM '用户名'@'主机';
+SHOW GRANTS FOR '用户名'@'主机';
+
+-- ✅ 授权：把 school 库所有表的 查询+插入 权限给用户
 GRANT SELECT, INSERT ON school.* TO 'richenyv'@'localhost';
 
 -- 授权：全部库全部权限（谨慎！相当于半个管理员）
