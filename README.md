@@ -251,6 +251,12 @@ D:\PythonProject
 用**面向对象思想**（抽象类 + 多态）读取 txt / JSON 两种格式的销售数据，
 封装成对象再汇总绘图，是 OOP + 数据分析 + 可视化的综合实战喵！
 
+### ⭐ pymysql 数据库实战（`21-SQL入门和实战/`）
+让 Python 与 MySQL 真正联动喵！
+- [`pymysql入门.py`](21-SQL入门和实战/pymysql入门.py)：连接测试、查询、插入一条龙
+- [`综合案例/`](21-SQL入门和实战/综合案例/综合案例.py)：读取销售数据 → 封装成对象 → **批量上传 MySQL** → SELECT 验证，
+  是 SQL + 面向对象 + 文件处理的综合实战喵！
+
 ### ⭐ 自建工具包 my_utils（`19-error、mode、package综合案例/my_utils/`）
 自己动手封装了 `file_util.py`（文件工具）和 `str_util.py`（字符串工具），
 并通过 `__init__.py` 的 `from . import` 预导入 + `__all__` 控制导入范围喵！
@@ -270,6 +276,7 @@ D:\PythonProject
    python .\04-循环语句\While语句\猜数.py
    python .\16-折线图开发\折线图开发.py      # 需要 pyecharts
    python .\20-python面向对象\练习案例\数据分析案例\数据分析案例.py
+   python .\21-SQL入门和实战\综合案例\综合案例.py   # 需要 pymysql + 本机 MySQL 服务
    ```
 3. **注意**：部分案例（如综合案例、可视化项目）依赖**绝对路径**读取数据文件，
    运行前请确认路径中的 `D:\PythonProject\...` 指向正确喵～
@@ -284,7 +291,7 @@ D:\PythonProject
 | IDE | PyCharm（`.idea/` 配置） |
 | 版本控制 | Git，分支 `main` |
 | 远程仓库 | https://github.com/RiChenyv/PythonProject.git |
-| 第三方依赖 | pyecharts 2.1.0（数据可视化） |
+| 第三方依赖 | pyecharts 2.1.0（数据可视化）、pymysql（连接 MySQL） |
 
 ---
 
