@@ -16,7 +16,7 @@ all_data: list[Record] = data_01 + data_02
 conn = connect(
     host="localhost",
     user="root",
-    passwd="REDACTED_PASSWORD",
+    passwd="********",
     autocommit=True,
     port=3306,
 )

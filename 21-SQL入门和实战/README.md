@@ -8,8 +8,13 @@
 ## 📁 目录
 
 ```
-SQL入门和实战
-└── README.md     # 本文件（MySQL 语法梳理 + 实战案例）
+21-SQL入门和实战
+├── README.md          # 本文件（MySQL 语法梳理 + 实战案例）
+├── pymysql入门.py     # 🐍 Python 连接 MySQL 基础操作（真实代码）
+└── 综合案例/          # 📦 销售数据上传数据库综合案例
+    ├── data_define.py # Record 数据封装类
+    ├── File_define.py # 文件读取器（txt / JSON）
+    └── 综合案例.py     # ⭐ 读取数据 → 上传 MySQL
 ```
 
 > 📌 本文件夹原计划用于 MySQL 学习，已通过 MySQL 软件完成学习喵～
@@ -526,6 +531,7 @@ WHERE amount > (SELECT AVG(amount) FROM orders WHERE status = '已支付');
 ### 🐍 案例 3：Python + pymysql 连接实战
 
 > 这是 Python 项目，当然要联动起来喵！
+> 📄 **真实代码已落地**：[`pymysql入门.py`](./pymysql入门.py)（连接测试、查询、插入一条龙喵！）
 
 ```python
 # pip install pymysql
@@ -558,6 +564,12 @@ cursor.close()
 conn.close()
 ```
 
+> 💡 `pymysql入门.py` 里的实际写法：
+> - `from pymysql import Connect` 或 `from pymysql import connect` 都能连
+> - `autocommit=True` 自动提交，写操作不用手动 `commit()` 喵！
+> - `conn.get_server_info()` 测试连接是否成功
+> - `conn.select_db("库名")` 选择数据库，`cursor.fetchall()` 取回查询结果喵！
+
 ### 🔐 案例 4：数据库账号与权限管理（DCL）
 
 > 给团队成员创建账号，按职责分配最小权限喵！
@@ -586,6 +598,47 @@ DROP USER 'analyst'@'%';
 ```
 
 > 🐱 案例要点：**开发给写权限、分析只给读权限**，就是最小权限原则的实践喵！
+
+### 📦 案例 5：销售数据上传 MySQL（综合案例/）
+
+> 把 20 号文件夹的**面向对象** + 14 号文件夹的**销售数据** + **pymysql** 全部串起来喵！
+> 📄 真实代码在 [`综合案例/`](./综合案例/) 里喵！
+
+```
+读取销售数据（txt + JSON）→ 封装成 Record 对象 → 连接 MySQL → 批量 INSERT → 验证上传
+```
+
+**三个文件的分工喵：**
+
+| 文件 | 作用 |
+|------|------|
+| `data_define.py` | `Record` 类封装一条销售记录（日期/订单id/金额/省份） |
+| `File_define.py` | `Filereader` 父类 + `textreader`（读 txt 文本）+ `filereader`（读 JSON）子类 |
+| `综合案例.py` | 主程序：读取 → 上传 → 验证 |
+
+```python
+# 综合案例.py 的核心逻辑
+conn = connect(host="localhost", user="root", passwd="...", autocommit=True)
+cursor = conn.cursor()
+conn.select_db("py_sql")   # 选择数据库
+
+for record in all_data:
+    SQL = f"insert into orders(order_data, order_id, money, province) " \
+          f"values('{record.date}', {record.ID}, {record.money}, '{record.province}')"
+    cursor.execute(SQL)    # 循环插入每一天的销售记录
+
+cursor.execute("select * from orders")
+if cursor.fetchall() != ():
+    print("已完成数据库上传")
+```
+
+> 💡 案例亮点喵：
+> - 面向对象读取两种格式的文件，代码复用率高喵！
+> - `autocommit=True` 每条插入自动提交，不用手动 `commit()` 喵！
+> - 插入后 `SELECT` 验证数据真的进了数据库喵！
+
+> ⚠️ **安全提醒**：`pymysql入门.py` / `综合案例.py` 里是**明文密码**，
+> 如果推送到 GitHub 会被看到喵！建议改用环境变量或配置文件读取密码喵！
 
 ---
 
@@ -618,10 +671,12 @@ DROP USER 'analyst'@'%';
 2. 💰 金额用 `DECIMAL`，别用 `FLOAT`，精度会哭喵！
 3. 🔤 建库建表统一 `utf8mb4` 编码，中文 emoji 都安全喵！
 4. 📏 DQL 执行顺序：`FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT` 喵！
-5. 🐍 Python 连 MySQL 用 `pymysql`，写操作记得 `commit()` 喵！
+5. 🐍 Python 连 MySQL 用 `pymysql`，写操作记得 `commit()`（或 `autocommit=True`）喵！
 6. 🚧 备份好习惯：`mysqldump -u root -p 库名 > 备份.sql` 喵！
 7. 🔐 DCL 遵循**最小权限原则**，别随手 `ALL PRIVILEGES`；用户授权后记得 `FLUSH PRIVILEGES` 喵！
 8. 👤 `'用户'@'主机'` 是一对组合：`localhost` 只本机能连，`%` 任意主机能连喵！
+9. 🔑 代码里的数据库密码别明文写死，用环境变量（`os.getenv`）或配置文件，防泄露喵！
+10. 📦 大批量插入数据用循环 + `autocommit=True` 最省事，插入后记得 `SELECT` 验证喵！
 
 ---
 

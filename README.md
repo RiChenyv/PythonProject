@@ -165,7 +165,12 @@ D:\PythonProject
 │   └── README.md
 │
 ├── 21-SQL入门和实战/               # 🐬 MySQL 学习笔记
-│   └── README.md                 # 语法梳理 + 实战案例
+│   ├── README.md                 # 语法梳理 + 实战案例
+│   ├── pymysql入门.py            # 🐍 Python 连接 MySQL 基础操作
+│   └── 综合案例/                  # 📦 销售数据上传 MySQL 案例
+│       ├── data_define.py        # Record 数据封装类
+│       ├── File_define.py        # txt / JSON 文件读取器
+│       └── 综合案例.py           # ⭐ 读取 → 上传 → 验证
 │
 ├── test.txt                      # 最外层测试读取文件
 └── README.md                     # 📖 本文件（就是你正在看的喵！）
