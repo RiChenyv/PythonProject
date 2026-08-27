@@ -20,6 +20,7 @@
 - ✅ JSON 与数据可视化：pyecharts 折线图 / 柱状图 / 地图
 - ✅ 面向对象：类与对象、封装、继承、多态、类型注解
 - ✅ SQL：MySQL 语法梳理与实战案例
+- ✅ 大数据：PySpark RDD 算子与实战案例
 - ✅ 综合案例：模拟 ATM、账单处理、三国新冠折线图、GDP 动态排行榜、数据分析案例
 
 > 🎯 目标：**快乐学习，扎实基础，喵生圆满！**
@@ -172,6 +173,13 @@ D:\PythonProject
 │       ├── File_define.py        # txt / JSON 文件读取器
 │       └── 综合案例.py           # ⭐ 读取 → 上传 → 验证
 │
+├── 22-pyspark实战/                # 🔥 PySpark 大数据入门
+│   ├── 使用pyspark/              # 环境搭建（SparkConf/Context）
+│   ├── 数据输入/                  # RDD 创建（parallelize/textFile）
+│   ├── 数据计算/                  # map/flatMap/reduceByKey/filter/sortBy
+│   ├── 实战案例/                  # ⭐ 词频统计 + 按省份汇总销售额
+│   └── README.md
+│
 ├── test.txt                      # 最外层测试读取文件
 └── README.md                     # 📖 本文件（就是你正在看的喵！）
 ```
@@ -216,9 +224,12 @@ D:\PythonProject
   └── 练习案例：数据分析案例（销售额柱状图）
 
 第 9 步：SQL 数据库（21-SQL入门和实战）
-  └── MySQL 语法梳理：DDL / DML / DQL / 约束 / 多表查询 / 事务 + 实战案例
+  └── MySQL 语法梳理：DDL / DML / DQL / 约束 / 多表查询 / 事务 + pymysql 实战案例
 
-第 10 步：综合案例（19-error、mode、package综合案例，把所学全部串起来！）
+第 10 步：大数据（22-pyspark实战）
+  └── PySpark 入门：RDD 创建 + 六大算子 + 词频统计/按省份汇总实战
+
+第 11 步：综合案例（19-error、mode、package综合案例，把所学全部串起来！）
 ```
 
 > 💡 建议按这个顺序学习，前面的内容是后面案例的基础喵～
@@ -257,6 +268,12 @@ D:\PythonProject
 - [`综合案例/`](21-SQL入门和实战/综合案例/综合案例.py)：读取销售数据 → 封装成对象 → **批量上传 MySQL** → SELECT 验证，
   是 SQL + 面向对象 + 文件处理的综合实战喵！
 
+### ⭐ PySpark 大数据实战（`22-pyspark实战/`）
+用 PySpark 处理大数据喵！
+- [`Case_01.py`](22-pyspark实战/实战案例/Case_01.py)：`flatMap 切词 → map (词,1) → reduceByKey` 经典**词频统计**
+- [`Case_2.py`](22-pyspark实战/实战案例/Case_2.py)：解析 JSON 销售数据，`reduceByKey` **按省份汇总销售额**，
+  是 RDD 算子 + 数据处理的大数据入门实战喵！
+
 ### ⭐ 自建工具包 my_utils（`19-error、mode、package综合案例/my_utils/`）
 自己动手封装了 `file_util.py`（文件工具）和 `str_util.py`（字符串工具），
 并通过 `__init__.py` 的 `from . import` 预导入 + `__all__` 控制导入范围喵！
@@ -291,7 +308,7 @@ D:\PythonProject
 | IDE | PyCharm（`.idea/` 配置） |
 | 版本控制 | Git，分支 `main` |
 | 远程仓库 | https://github.com/RiChenyv/PythonProject.git |
-| 第三方依赖 | pyecharts 2.1.0（数据可视化）、pymysql（连接 MySQL） |
+| 第三方依赖 | pyecharts 2.1.0（数据可视化）、pymysql（连接 MySQL）、pyspark 4.2.0（大数据） |
 
 ---
 
