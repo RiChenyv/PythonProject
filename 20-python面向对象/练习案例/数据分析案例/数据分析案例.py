@@ -46,6 +46,9 @@ y_data = []                       # 先建一个空列表
 for v in data_dict.values():      # 遍历每一天的销售额
     y_data.append(round(v, 1))    # 四舍五入到1位小数，再放进列表
 """
+# print(type(x_data))
+# print(x_data)
+# print(list(x_data))
 bar.add_xaxis(list(x_data))
 bar.add_yaxis("日销售额", y_data, label_opts=LabelOpts(is_show=False))
 # 全局设置
