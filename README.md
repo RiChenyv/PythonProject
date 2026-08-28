@@ -328,4 +328,34 @@ D:\PythonProject
 > 希望这份学习笔记能帮你（或者未来的自己）快速回忆起每个知识点喵～
 > 喵呜～一起加油，把 Python 学得棒棒哒！🐾
 
+## 🧠 知识点总结（复习速查）
+
+> 两天后复习就看这块喵！按学习路线 01→22 把整个项目的核心知识点浓缩成一张表，每个知识点都标注了原码位置，点开对应文件就能回忆喵！
+
+| # | 知识点 | 原码引用 | 要点速记 |
+|---|--------|----------|----------|
+| 1 | 基础输入输出 | `01-print输出/01_print基础使用.py` | `print()` 逗号多参、`sep`/`end` 控制分隔与结尾；`input()` 永远返回字符串，参与运算前要 `int()`/`float()` 转换喵 |
+| 2 | 判断语句 | `03-判断语句/if类型的使用/03_if_elif_else.py` | `if`-`elif`-`else` 从上往下命中即止；布尔 `True/False`、比较运算、`and`/`or`/`not` 逻辑运算（闰年判断）喵 |
+| 3 | 循环与中断 | `04-循环语句/循环中断/01_break.py` | `for`+`range`、`while` 遍历；`break` 结束整个循环、`continue` 跳过本次，只作用于当前层喵 |
+| 4 | 字符串拓展 | `05-字符串拓展/03_字符串常用方法.py` | `strip`/`split`/`join`/`replace`/`find`/`count` 全家桶；`isdigit()` 校验输入；f-string 格式化最推荐喵 |
+| 5 | 数据容器 | `06-数据容器/List/02_list常用操作.py` | List 可变 / Tuple 不可变 / set 去重无序 / dict 键值对；序列切片 `[起:止:步]`；set/dict 不能下标索引喵 |
+| 6 | 函数 | `07-函数基础/函数语法及应用.py` | `def` 定义、`return` 返回值、无 return 返回 `None`；局部/全局变量、`global` 声明；进阶见 08 的 lambda 喵 |
+| 7 | 异常处理 | `09-异常处理/catch_bug/TyrCatch.py` | `try`/`except`/`else`/`finally` 四件套；`except Exception` 兜底；异常会沿调用链一路往上抛喵 |
+| 8 | 模块与包 | `11-包与导入/test.py` | `import` 四种形式；包 = 文件夹 + `__init__.py`；`__all__` 只是名单，真正导入靠 `from . import` 喵 |
+| 9 | 文件操作 | `12-文件操作/综合案例.py` | `r`/`w`/`a` 三种模式、`with open` 自动关闭、`read`/`readlines`/`readline` 区分、别忘了 `encoding="utf-8"` 喵 |
+| 10 | JSON 与可视化 | `16-折线图开发/折线图开发.py` | `json.dumps`/`loads` 互转（`ensure_ascii=False` 保中文）；pyecharts `Line`/`Bar`/`Map`/`Timeline` 画图、`Tab` 多图切换喵 |
+| 11 | 面向对象 | `20-python面向对象/学习内容/6-继承/phone_1.0.py` | `__init__` 构造、`__` 私有成员、多继承、`super()` 调父类、多态；数据分析案例用抽象类 + 多态实战喵 |
+| 12 | SQL 与大数据 | `21-SQL入门和实战/pymysql入门.py` | pymysql 连接 → 游标 → `execute` → `fetchall` 上传数据；PySpark RDD `flatMap→map→reduceByKey` 词频统计喵 |
+
+---
+
+## ⚠️ 注意事项（易踩的坑）
+
+1. ⚠️ **Windows 路径转义**：全项目大量硬编码 `D:/PythonProject/...` 或 `r"D:\..."` 绝对路径，忘写 `r` 前缀时 `\t`、`\n`、`\1` 会被当成转义符；而且换台电脑目录一变就 `FileNotFoundError`，建议改用相对路径或 `Path(__file__)` 喵（见 `17-可视化柱状图/main.py`、`22-pyspark实战/数据输入/rdd.py`）。
+2. ⚠️ **`input()` 永远返回字符串**：01~04 文件夹几乎所有案例都要先 `int()`/`float()` 转换再比较或运算，忘了转直接 `age >= 18` 就报错；转换前最好先用 `isdigit()` 校验输入喵。
+3. ⚠️ **文件读写三连坑**：`w` 模式会清空原内容、`write()` 不自动换行要自己拼 `'\n'`、`read()` 完指针到末尾再 `readlines()` 读到空；读中文文件不写 `encoding="utf-8"` 会乱码，`12-文件操作/综合案例.py` 还把输出文件名写成了 `bill_test.txt.`（末尾多个点）喵！
+4. ⚠️ **函数作用域与 None**：函数里改全局变量要先 `global` 声明（`07-函数基础/02_综合案例/模拟ATM.py` 的正确示范），忘了声明只会新建局部变量、外面根本改不到；没写 `return` 的函数返回的是 `None`，别拿它当数字继续运算喵。
+5. ⚠️ **模块包的「名单」陷阱**：`__all__` 只是导出名单，不写 `from . import` 照样导不进子模块（`19-error、mode、package综合案例/my_utils/__init__.py` 的正确写法是两行都写）；目录名带数字/连字符（如 `11-包与导入`）不能直接写进 `import`，要用 `importlib.import_module` 绕开喵。
+6. ⚠️ **编码与密码安全**：JSON 读写都要 `ensure_ascii=False` 保中文、文件读写统一 `utf-8`；`21-SQL入门和实战/pymysql入门.py` 和 `综合案例/综合案例.py` 里密码是明文写死的，推 GitHub 就泄露啦，记得改成环境变量，SQL 也别用 f-string 硬拼（防注入）喵！
+
 *README 由喵喵助手整理生成，祝你学习愉快喵！✨*

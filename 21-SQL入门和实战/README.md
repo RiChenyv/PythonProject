@@ -14,7 +14,9 @@
 └── 综合案例/          # 📦 销售数据上传数据库综合案例
     ├── data_define.py # Record 数据封装类
     ├── File_define.py # 文件读取器（txt / JSON）
-    └── 综合案例.py     # ⭐ 读取数据 → 上传 MySQL
+    ├── 综合案例.py     # ⭐ 读取数据 → 上传 MySQL
+    ├── 读取数据库.py   # ⭐ 从数据库读出 → 转 JSON 写入文件
+    └── json数据.txt    # 读取数据库.py 生成的 JSON 输出文件
 ```
 
 > 📌 本文件夹原计划用于 MySQL 学习，已通过 MySQL 软件完成学习喵～
@@ -677,6 +679,36 @@ if cursor.fetchall() != ():
 8. 👤 `'用户'@'主机'` 是一对组合：`localhost` 只本机能连，`%` 任意主机能连喵！
 9. 🔑 代码里的数据库密码别明文写死，用环境变量（`os.getenv`）或配置文件，防泄露喵！
 10. 📦 大批量插入数据用循环 + `autocommit=True` 最省事，插入后记得 `SELECT` 验证喵！
+
+---
+
+## 🧠 知识点总结（复习速查）
+
+> 两天后复习就看这块喵！每个知识点都标注了原码位置，点开对应文件就能回忆喵！
+
+| # | 知识点 | 原码引用 | 要点速记 |
+|---|--------|----------|----------|
+| 1 | pymysql 连接数据库 | `pymysql入门.py` | `Connect(host=, user=, passwd=, port=, autocommit=True)` 建连，`get_server_info()` 测试是否连通 |
+| 2 | 游标执行 SQL 全流程 | `pymysql入门.py` | `cursor()` 拿游标 → `select_db()` 选库 → `execute()` 执行 → `fetchall()` 取回结果 → `close()` 断开 |
+| 3 | 数据封装类 | `data_define.py` | `Record` 类用 `__init__` 封装日期/ID/金额/省份，`__str__` 魔术方法方便打印测试 |
+| 4 | 面向对象文件读取 | `File_define.py` | `Filereader` 父类定义 `read_data()` 接口，子类 `textreader` / `filereader` 各自实现 |
+| 5 | 读取 txt 文本数据 | `File_define.py` | `textreader` 用 count 跳过表头行，`strip()` + `split(',')` 拆列，金额转 `float` |
+| 6 | 读取 JSON 数据 | `File_define.py` | `filereader` 用 `json.loads` 解析，按中文键 `日期/订单id/销售额/销售省份` 取值 |
+| 7 | 数据合并 + 循环上传 | `综合案例.py` | 两份数据列表直接相加合并，for 循环逐条拼 INSERT 语句上传 MySQL |
+| 8 | 上传结果验证 | `综合案例.py` | `time.sleep(2)` 等写入完成，再 `SELECT` 结果非空即上传成功 |
+| 9 | 数据库读出转 JSON | `读取数据库.py` | `fetchall()` 逐行 `json.dumps(ensure_ascii=False, default=str)` 追加写入 txt |
+| 10 | 自动提交 autocommit | `pymysql入门.py` | 连接参数 `autocommit=True` 后写操作自动生效，不用手动 `commit()` |
+
+---
+
+## ⚠️ 注意事项（易踩的坑）
+
+1. ⚠️ **明文密码写死**：`pymysql入门.py`、`综合案例.py` 里 `passwd="REDACTED_PASSWORD"` 直接明文，推 GitHub 就泄露啦！改用 `os.getenv()` 环境变量或配置文件喵！
+2. ⚠️ **f-string 拼 SQL 有注入风险**：`综合案例.py` 用 f-string 直接拼 INSERT，字符串字段得手动加单引号（`'{record.date}'`）、数字不加，漏加引号直接语法报错喵！生产环境记得用 `%s` 参数化查询喵！
+3. ⚠️ **读 txt 要跳表头**：`File_define.py` 里用 `count` 变量跳过第一行，忘了跳会把 `日期,订单id,...` 表头当数据插进库里喵！
+4. ⚠️ **路径反斜杠转义**：`File_define.py`、`综合案例.py` 都用 `r"..."` 原始字符串写 Windows 路径，不用 `r` 前缀的话 `\t`、`\n` 会被当成转义符喵！
+5. ⚠️ **文件编码别忘**：读文件要带 `encoding='utf-8'`；写 JSON 时 `ensure_ascii=False` 否则中文全变 `\uXXXX`，还要 `default=str` 处理日期类型喵！
+6. ⚠️ **用完记得关连接**：操作完要 `conn.close()`，数据库连接不关会一直占着资源喵！
 
 ---
 

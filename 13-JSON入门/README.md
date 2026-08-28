@@ -74,4 +74,30 @@ python与json转化：
 
 ---
 
+## 🧠 知识点总结（复习速查）
+
+> 两天后复习就看这块喵！每个知识点都标注了原码位置，点开对应文件就能回忆喵！
+
+| # | 知识点 | 原码引用 | 要点速记 |
+|---|--------|----------|----------|
+| 1 | JSON 本质是字符串 | `Learnjson` | 长得像字典/列表，但本质是 `str`，`{}` 表示对象、`[]` 表示数组喵 |
+| 2 | 先 `import json` | `Learnjson` | 用之前必须先导入 json 模块，笔记第一句就强调喵 |
+| 3 | `json.dumps()` 序列化 | `json数据格式.py` | Python 数据 → JSON 字符串（py 出），列表、字典都能转喵 |
+| 4 | `ensure_ascii=False` | `json数据格式.py` | 不加它中文会变成 `\u65e5\u8fb0\u7fbd` 转义字符喵 |
+| 5 | `json.loads()` 反序列化 | `json数据格式.py` | JSON 字符串 → Python 数据（py 入），转回 list / dict 喵 |
+| 6 | `type()` 验证类型 | `json数据格式.py` | dumps 后是 `<class 'str'>`，loads 后变回原来的类型喵 |
+| 7 | 中文字符串示例 | `json数据格式.py` | 数据里有「日辰羽 / richenyv」，证明中文也能正常转换喵 |
+
+---
+
+## ⚠️ 注意事项（易踩的坑）
+
+1. ⚠️ **忘记 `import json`** 就直接调 `json.dumps()`：会直接报 `NameError` 喵！笔记里第一句就强调「首先要 import json」喵。
+2. ⚠️ **忘记 `ensure_ascii=False`**：中文会变成 `\u65e5\u8fb0\u7fbd` 这样的转义序列，打印出来像乱码喵！
+3. ⚠️ **搞混 `dumps` / `loads` 方向**：dumps 是 py 出（Python → JSON 字符串），loads 是 py 入（JSON 字符串 → Python），反了会报 `TypeError` 喵。
+4. ⚠️ **`json.loads()` 只能吃字符串**：参数必须是 dumps 出来的字符串，直接传字典/列表进去会报错喵。
+5. ⚠️ **中文编码问题**：JSON 文本文件读写记得用 UTF-8 编码，否则中文会乱码，`ensure_ascii=False` 也救不回来喵～
+
+---
+
 *本笔记由喵喵助手整理，JSON 认识 get 喵！🐾*
