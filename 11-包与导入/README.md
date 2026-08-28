@@ -452,4 +452,34 @@ from 模块 import 函数 → 最直接，直接用
 
 ---
 
+## 🧠 知识点总结（复习速查）
+
+> 两天后复习就看这块喵！每个知识点都标注了原码位置，点开对应文件就能回忆喵！
+
+| # | 知识点 | 原码引用 | 要点速记 |
+|---|--------|----------|----------|
+| 1 | 包 = 文件夹 + `__init__.py` | `my_package/__init__.py` | 空文件也足以把文件夹标记成包，被导入时会先执行它 |
+| 2 | `import 包.模块` 的导入方式 | `my_package/READMODE.py` | `import my_package.READMODE` 后用 `my_package.READMODE.ReadMode()` 调用 |
+| 3 | 目录名带数字/连字符不能 import | `test.py` | `11-包与导入` 不是合法模块名，改用 `importlib.import_module` 动态导入 |
+| 4 | `sys.path` 手动加搜索路径 | `test.py` | `sys.path.insert(0, ...)` 把项目根目录加进去，保证从任何位置都能找到包 |
+| 5 | `from 包 import 模块` 少一层前缀 | `test.py` | `from my_package import READMODE` 后直接 `READMODE.ReadMode()` 就能用 |
+| 6 | `if __name__ == '__main__'` 自测入口 | `my_package/READMODE.py` | 直接运行才执行测试代码，被 import 时不执行 |
+| 7 | 读文件要指定 utf-8 编码 | `my_package/READMODE.py` | `open(path, "r", encoding="utf-8")`，防止中文乱码 |
+| 8 | 空 `__init__.py` 不预导入子模块 | `my_package/__init__.py` | `import my_package` 后 `READMODE` 不可见，须显式 `import my_package.READMODE` |
+| 9 | `__all__` 只是名单、不负责导入 | `my_package/__init__.py` | 还要写 `from . import READMODE`，`from 包 import *` 才拿得到 |
+| 10 | 顶层测试脚本用绝对导入 | `test.py` | 相对导入只能在包内部用，脚本里用绝对导入最稳 |
+
+---
+
+## ⚠️ 注意事项（易踩的坑）
+
+1. ⚠️ 目录带数字前缀/连字符时不能写进 import 语法：`from 11-包与导入.my_package import READMODE` 会直接语法报错（模块名不能以数字开头、不能含 `-`），必须像 `test.py` 那样用 `importlib.import_module("11-包与导入.my_package.READMODE")`。
+2. ⚠️ 只改 import 不修 `sys.path` 照样报 `ModuleNotFoundError`：`test.py` 第 8 行 `sys.path.insert(0, ...)` 把项目根目录加进搜索路径是必须的，否则从别的目录运行就找不到 `my_package`。
+3. ⚠️ 空 `__init__.py` 只标记包、不导入子模块：`import my_package` 之后直接访问 `my_package.READMODE` 会报 `AttributeError`，要么显式 `import my_package.READMODE`，要么在 `__init__.py` 里写 `from . import READMODE`。
+4. ⚠️ Windows 路径里的 `\` 会被当成转义符：`"D:\PythonProject\test.txt"` 中的 `\P` 是非法转义会警告、`\t` 会变成制表符；学 `test.py` 用正斜杠 `"D:/PythonProject/test.txt"` 或加 `r` 前缀。
+5. ⚠️ 相对导入只能在包内部用：直接 `python READMODE.py` 跑带 `.` 导入的文件会报 `ImportError: attempted relative import with no known parent package`，顶层测试脚本一律用绝对导入。
+6. ⚠️ 打开文件后记得关闭：`test.py` 里的 `f.close()` 不能省（或用 `with open(...)`）；同时 `open()` 要带上 `encoding="utf-8"`，否则中文内容可能乱码喵。
+
+---
+
 *本 README 由喵喵助手生成，祝你 Python 学习顺利喵！🐾*

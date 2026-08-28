@@ -23,6 +23,12 @@
 │   │   └── filter方法使用.py   # filter 过滤
 │   └── sortBy算子的使用/
 │       └── sortBy算子的使用.py # sortBy 排序
+├── 数据输出/                  # 结果输出算子
+│   ├── collect算子.py          # collect 收回本地列表
+│   ├── count算子.py            # count 统计元素个数
+│   ├── reduce算子.py           # reduce 聚合为单个值
+│   ├── tske算子.py             # take 取前 n 个（文件名拼写如此喵）
+│   └── 输出到文件中.py          # 🚧 未完成（空文件）
 ├── 实战案例/
 │   ├── Case_01.py             # ⭐ 词频统计（文本）
 │   └── Case_2.py              # ⭐ 按省份汇总销售额（JSON）
@@ -149,6 +155,37 @@ print([(p, f"{m:.2f}") for p, m in city_with_money_rdd.collect()])
 3. ⚙️ 六大算子：`map` / `flatMap` / `reduceByKey` / `distinct` / `filter` / `sortBy`
 4. 📊 `collect()` 收结果，`sc.stop()` 关环境
 5. 🏆 WordCount 经典流程：`flatMap 切词 → map (词,1) → reduceByKey 求和`
+
+---
+
+## 🧠 知识点总结（复习速查）
+
+> 两天后复习就看这块喵！每个知识点都标注了原码位置，点开对应文件就能回忆喵！
+
+| # | 知识点 | 原码引用 | 要点速记 |
+|---|--------|----------|----------|
+| 1 | 环境搭建：SparkConf + SparkContext | `使用pyspark/学习引入.py` | `setMaster("local[*]")` 本地模式、`setAppName` 起任务名、用完 `sc.stop()` 喵 |
+| 2 | RDD 创建：parallelize / textFile | `数据输入/rdd.py` | 内存集合（列表/字典/字符串）用 `parallelize`，文件按**行**读用 `textFile` |
+| 3 | `map` 一对一映射 | `数据计算/MAP方法的使用.py` | 每个元素过一遍函数，1 进 1 出（如 ×10） |
+| 4 | `flatMap` 扁平化 | `数据计算/FlatMap方法的使用.py` | 先映射再**解嵌套**，一句话 `split` 摊平成多个词 |
+| 5 | `reduceByKey` 按键聚合 | `数据计算/ReduceByKey.py` | 只处理 (键, 值) 对，按 key 分组求和 |
+| 6 | `filter` 过滤 | `数据计算/filterf方法/filter方法使用.py` | 保留返回 `True` 的元素（如 `x % 2 == 0` 取偶数） |
+| 7 | `distinct` 去重 | `数据计算/distinct方法的使用/distinct使用.py` | 去掉重复元素，去重后顺序不保证 |
+| 8 | `sortBy` 排序 | `数据计算/sortBy算子的使用/sortBy算子的使用.py` | 按 `x[1]` 排序，`ascending` 管升降序，`numPartitions=1` 才全局有序 |
+| 9 | 输出算子：collect / count / take / reduce | `数据输出/collect算子.py` | `collect` 收回本地 Python 列表、`count` 数元素个数、`take(5)` 取前 5 个、`reduce` 聚合成单个值 |
+| 10 | 词频统计（WordCount） | `实战案例/Case_01.py` | 口诀：`flatMap 切词 → map 变 (词,1) → reduceByKey 求和` |
+| 11 | 按省份汇总销售额（JSON） | `实战案例/Case_2.py` | `filter` 清括号行 → `json.loads` 解析 → 取 (省份, 销售额) → `reduceByKey` 求和 |
+
+---
+
+## ⚠️ 注意事项（易踩的坑）
+
+1. ⚠️ **环境变量写法不统一**：`MAP方法的使用.py` 用的是 `PYSPARK_PYTHON`，而 `filter方法使用.py`、`Case_2.py` 却用 `PYSPARK_DRIVER_PYTHON`——换台机器跑容易报 Python 解释器错误，喵！认准一种写法就好。
+2. ⚠️ **别忘了 `sc.stop()`**：`数据计算/FlatMap方法的使用.py` 跑完没关 SparkContext，反复运行会一直占着资源不释放喵！
+3. ⚠️ **`reduceByKey` 只认 (键, 值) 对**：`ReduceByKey.py` 里的数据必须是一对一对的元组，拿普通数字列表去聚合会直接报错喵！
+4. ⚠️ **路径转义坑**：`rdd.py` 用 `r"D:\PythonProject\14-json原始数据\..."` 原始字符串读文件，漏了 `r` 前缀或反斜杠写错（`\t`、`\n` 会被转义），文件就读不到了喵！
+5. ⚠️ **JSON 要先「去壳」再解析**：`Case_2.py` 必须先 `filter` 掉 `[` `]` 和空行，再 `rstrip(",")` 才能 `json.loads`，少一步就解析报错喵！
+6. ⚠️ **小心还没写完/写错名字的文件**：`数据输出/输出到文件中.py` 是空文件（保存 RDD 到文件的代码还没写），`tske算子.py` 其实是 `take` 算子的拼写错误——复习时别被文件名带偏喵！
 
 ---
 
