@@ -28,10 +28,11 @@
 │   ├── count算子.py            # count 统计元素个数
 │   ├── reduce算子.py           # reduce 聚合为单个值
 │   ├── tske算子.py             # take 取前 n 个（文件名拼写如此喵）
-│   └── 输出到文件中.py          # 🚧 未完成（空文件）
+│   └── 输出到文件中.py          # ⭐ saveAsTextFile 保存到文件（输出 test1/test2）
 ├── 实战案例/
 │   ├── Case_01.py             # ⭐ 词频统计（文本）
-│   └── Case_2.py              # ⭐ 按省份汇总销售额（JSON）
+│   ├── Case_2.py              # ⭐ 按省份汇总销售额（JSON）
+│   └── Case_03.py             # ⭐ 搜索引擎日志分析（热门时段/热词/JSON 输出）
 └── README.md                  # 本文件
 ```
 
@@ -175,6 +176,9 @@ print([(p, f"{m:.2f}") for p, m in city_with_money_rdd.collect()])
 | 9 | 输出算子：collect / count / take / reduce | `数据输出/collect算子.py` | `collect` 收回本地 Python 列表、`count` 数元素个数、`take(5)` 取前 5 个、`reduce` 聚合成单个值 |
 | 10 | 词频统计（WordCount） | `实战案例/Case_01.py` | 口诀：`flatMap 切词 → map 变 (词,1) → reduceByKey 求和` |
 | 11 | 按省份汇总销售额（JSON） | `实战案例/Case_2.py` | `filter` 清括号行 → `json.loads` 解析 → 取 (省份, 销售额) → `reduceByKey` 求和 |
+| 12 | RDD 保存到文件 | `数据输出/输出到文件中.py` | `saveAsTextFile(路径)` 输出到目录，数据在 `part-00000`、`_SUCCESS` 是成功标志 |
+| 13 | 强制单分区输出 | `数据输出/输出到文件中.py` | `parallelize(数据, 1)` 或 `conf.set("spark.default.parallelism", "1")` 只出一个 part 文件 |
+| 14 | 搜索引擎日志分析 | `实战案例/Case_03.py` | 日志按 `\t` 切分 → 热门时段/热词用 `map → reduceByKey → sortBy → take(3)`；JSON 输出用 `map 构造字典 → saveAsTextFile` |
 
 ---
 
@@ -185,7 +189,9 @@ print([(p, f"{m:.2f}") for p, m in city_with_money_rdd.collect()])
 3. ⚠️ **`reduceByKey` 只认 (键, 值) 对**：`ReduceByKey.py` 里的数据必须是一对一对的元组，拿普通数字列表去聚合会直接报错喵！
 4. ⚠️ **路径转义坑**：`rdd.py` 用 `r"D:\PythonProject\14-json原始数据\..."` 原始字符串读文件，漏了 `r` 前缀或反斜杠写错（`\t`、`\n` 会被转义），文件就读不到了喵！
 5. ⚠️ **JSON 要先「去壳」再解析**：`Case_2.py` 必须先 `filter` 掉 `[` `]` 和空行，再 `rstrip(",")` 才能 `json.loads`，少一步就解析报错喵！
-6. ⚠️ **小心还没写完/写错名字的文件**：`数据输出/输出到文件中.py` 是空文件（保存 RDD 到文件的代码还没写），`tske算子.py` 其实是 `take` 算子的拼写错误——复习时别被文件名带偏喵！
+6. ⚠️ **`saveAsTextFile` 目标目录不能已存在**：`输出到文件中.py` 输出到 `test1`/`test2`，重复运行前必须手动删掉旧目录，否则直接报错喵！
+7. ⚠️ **`tske算子.py` 是拼写错误**：其实是 `take` 算子的文件名拼写错了，别被文件名带偏喵！
+8. ⚠️ **`Case_03.py` 的嵌套聚合要理清结构**：需求 3 用两次 `reduceByKey`（先按 (词,时段) 统计，再按词比较时段 count），`lambda x, y: x if x[1] > y[1] else y` 是「留下 count 大的」——复习时注意两层聚合的先后喵！
 
 ---
 

@@ -129,13 +129,15 @@ D:\PythonProject
 │   └── README.md
 │
 ├── 14-json原始数据/              # 📊 原始数据仓库（各项目数据源头）
-│   └── 原始数据/
-│       ├── covid19_2022_美国.txt # 新冠数据（JSON 格式）
-│       ├── covid19_2022_日本.txt
-│       ├── covid19_2022_印度.txt
-│       ├── totallynum.txt        # 三国汇总数据
-│       ├── 各国GDP_1960-2026.txt # GDP 数据（CSV 格式）
-│       └── 2026年1、2月销售数据.txt
+│   ├── 原始数据/
+│   │   ├── covid19_2022_美国.txt # 新冠数据（JSON 格式）
+│   │   ├── covid19_2022_日本.txt
+│   │   ├── covid19_2022_印度.txt
+│   │   ├── totallynum.txt        # 三国汇总数据
+│   │   ├── 各国GDP_1960-2026.txt # GDP 数据（CSV 格式）
+│   │   ├── 2026年1、2月销售数据.txt
+│   │   └── 搜索引擎日志.txt      # 🔍 日志（时间/词/IP，\t 分隔）
+│   └── 搜索引擎json数据处理返回/ # Case_03.py 的 JSON 输出（Spark 产物）
 │
 ├── 15-可视化入门/                # 📈 pyecharts 可视化入门
 │   ├── 基础折线图.py             # 四步画出折线图
@@ -171,14 +173,20 @@ D:\PythonProject
 │   └── 综合案例/                  # 📦 销售数据上传 MySQL 案例
 │       ├── data_define.py        # Record 数据封装类
 │       ├── File_define.py        # txt / JSON 文件读取器
-│       └── 综合案例.py           # ⭐ 读取 → 上传 → 验证
+│       ├── 综合案例.py           # ⭐ 读取 → 上传 → 验证
+│       ├── 读取数据库.py         # ⭐ 从数据库读出 → 转 JSON
+│       └── json数据.txt          # 读取数据库.py 的输出
 │
 ├── 22-pyspark实战/                # 🔥 PySpark 大数据入门
 │   ├── 使用pyspark/              # 环境搭建（SparkConf/Context）
 │   ├── 数据输入/                  # RDD 创建（parallelize/textFile）
 │   ├── 数据计算/                  # map/flatMap/reduceByKey/filter/sortBy
-│   ├── 实战案例/                  # ⭐ 词频统计 + 按省份汇总销售额
+│   ├── 数据输出/                  # collect/count/reduce/take + saveAsTextFile
+│   ├── 实战案例/                  # ⭐ 词频统计/省份汇总/搜索引擎日志分析
 │   └── README.md
+│
+├── test1/ test2/                  # 📁 PySpark saveAsTextFile 输出目录
+│   └── README.md                 # 输出说明
 │
 ├── test.txt                      # 最外层测试读取文件
 └── README.md                     # 📖 本文件（就是你正在看的喵！）
@@ -227,7 +235,7 @@ D:\PythonProject
   └── MySQL 语法梳理：DDL / DML / DQL / 约束 / 多表查询 / 事务 + pymysql 实战案例
 
 第 10 步：大数据（22-pyspark实战）
-  └── PySpark 入门：RDD 创建 + 六大算子 + 词频统计/按省份汇总实战
+  └── PySpark 入门：RDD 创建 + 六大算子 + saveAsTextFile 输出 + 词频统计/省份汇总/搜索引擎日志分析
 
 第 11 步：综合案例（19-error、mode、package综合案例，把所学全部串起来！）
 ```
@@ -271,8 +279,9 @@ D:\PythonProject
 ### ⭐ PySpark 大数据实战（`22-pyspark实战/`）
 用 PySpark 处理大数据喵！
 - [`Case_01.py`](22-pyspark实战/实战案例/Case_01.py)：`flatMap 切词 → map (词,1) → reduceByKey` 经典**词频统计**
-- [`Case_2.py`](22-pyspark实战/实战案例/Case_2.py)：解析 JSON 销售数据，`reduceByKey` **按省份汇总销售额**，
-  是 RDD 算子 + 数据处理的大数据入门实战喵！
+- [`Case_2.py`](22-pyspark实战/实战案例/Case_2.py)：解析 JSON 销售数据，`reduceByKey` **按省份汇总销售额**
+- [`Case_03.py`](22-pyspark实战/实战案例/Case_03.py)：**搜索引擎日志分析**——热门搜索时段/热门搜索词/各词最热时段 + `map 构造字典 → saveAsTextFile` 输出 JSON，
+  是 RDD 算子 + 数据处理的大数据实战喵！
 
 ### ⭐ 自建工具包 my_utils（`19-error、mode、package综合案例/my_utils/`）
 自己动手封装了 `file_util.py`（文件工具）和 `str_util.py`（字符串工具），
