@@ -21,6 +21,7 @@
 - ✅ 面向对象：类与对象、封装、继承、多态、类型注解
 - ✅ SQL：MySQL 语法梳理与实战案例
 - ✅ 大数据：PySpark RDD 算子与实战案例
+- ✅ Python 高阶技巧：闭包、装饰器、多线程、socket 网络编程、设计模式
 - ✅ 综合案例：模拟 ATM、账单处理、三国新冠折线图、GDP 动态排行榜、数据分析案例
 
 > 🎯 目标：**快乐学习，扎实基础，喵生圆满！**
@@ -185,6 +186,14 @@ D:\PythonProject
 │   ├── 实战案例/                  # ⭐ 词频统计/省份汇总/搜索引擎日志分析
 │   └── README.md
 │
+├── 23-python高阶技巧/             # 🔧 Python 高阶技巧
+│   ├── 闭包/                      # 闭包 + nonlocal（ATM 案例）
+│   ├── 装饰器/                    # 闭包写法 + @ 语法糖
+│   ├── 多线程/                    # threading 多线程
+│   ├── 网络编程/                  # ⭐ socket 聊天室（服务端/客户端）
+│   ├── 设计模式/                  # 单例模式 + 工厂模式
+│   └── README.md
+│
 ├── test1/ test2/                  # 📁 PySpark saveAsTextFile 输出目录
 │   └── README.md                 # 输出说明
 │
@@ -237,7 +246,10 @@ D:\PythonProject
 第 10 步：大数据（22-pyspark实战）
   └── PySpark 入门：RDD 创建 + 六大算子 + saveAsTextFile 输出 + 词频统计/省份汇总/搜索引擎日志分析
 
-第 11 步：综合案例（19-error、mode、package综合案例，把所学全部串起来！）
+第 11 步：Python 高阶技巧（23-python高阶技巧）
+  └── 闭包 → 装饰器 → 多线程 → socket 网络编程 → 设计模式（单例/工厂）
+
+第 12 步：综合案例（19-error、mode、package综合案例，把所学全部串起来！）
 ```
 
 > 💡 建议按这个顺序学习，前面的内容是后面案例的基础喵～
@@ -282,6 +294,13 @@ D:\PythonProject
 - [`Case_2.py`](22-pyspark实战/实战案例/Case_2.py)：解析 JSON 销售数据，`reduceByKey` **按省份汇总销售额**
 - [`Case_03.py`](22-pyspark实战/实战案例/Case_03.py)：**搜索引擎日志分析**——热门搜索时段/热门搜索词/各词最热时段 + `map 构造字典 → saveAsTextFile` 输出 JSON，
   是 RDD 算子 + 数据处理的大数据实战喵！
+
+### ⭐ socket 聊天室（`23-python高阶技巧/网络编程/`）
+用 socket + threading 实现**双人聊天**喵！
+- [`服务端.py`](23-python高阶技巧/网络编程/服务端.py)：`bind → listen → accept` 等连接
+- [`客户端.py`](23-python高阶技巧/网络编程/客户端.py)：`connect` 连上就聊
+- `receve.py`：线程循环收消息，输入 `exit` 断开，
+  是网络编程 + 多线程 + 闭包的综合实战喵！
 
 ### ⭐ 自建工具包 my_utils（`19-error、mode、package综合案例/my_utils/`）
 自己动手封装了 `file_util.py`（文件工具）和 `str_util.py`（字符串工具），
