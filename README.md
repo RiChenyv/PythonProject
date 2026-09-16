@@ -32,6 +32,10 @@
 
 ```
 D:\PythonProject
+├── .python-version               # 指定 Python 3.14（uv 依赖管理器用）
+├── pyproject.toml                # 项目与依赖配置（uv）
+├── uv.lock                       # 锁定依赖版本（由 `uv sync`/`uv lock` 生成，用于可复现构建）
+├── src/pythonproject/            # 项目包（uv 脚手架，含 __init__.py 入口）
 ├── .venv/                        # Python 虚拟环境（本机开发用）
 ├── .idea/                        # PyCharm 项目配置
 ├── images/                       # 学习笔记配图（截图、总结图）
@@ -310,6 +314,17 @@ D:\PythonProject
 
 ## 🚀 如何运行
 
+### 方式一：用 uv（推荐）
+
+```powershell
+uv sync                       # 按 pyproject.toml / uv.lock 创建 .venv 并安装依赖
+                              # 镜像已设为清华 TUNA（见 pyproject.toml 的 [[tool.uv.index]]）
+uv run pythonproject          # 运行项目包入口（src/pythonproject/__init__.py 的 main）
+uv run python .\07-函数基础\02_综合案例\模拟ATM.py   # 用 uv 环境跑任意示例
+```
+
+### 方式二：手动激活 `.venv`（传统方式）
+
 1. **激活虚拟环境**（推荐使用项目自带的 `.venv`）：
    ```powershell
    # Windows
@@ -332,7 +347,8 @@ D:\PythonProject
 
 | 项目 | 说明 |
 |------|------|
-| 语言 | Python 3.14（虚拟环境 `.venv` 内） |
+| 语言 | Python 3.14（`.python-version` 指定，虚拟环境 `.venv` 内） |
+| 依赖管理 | [uv](https://docs.astral.sh/uv/)（`pyproject.toml`，src 布局可安装包，`uv.lock` 锁定版本） |
 | IDE | PyCharm（`.idea/` 配置） |
 | 版本控制 | Git，分支 `main` |
 | 远程仓库 | https://github.com/RiChenyv/PythonProject.git |
@@ -384,6 +400,6 @@ D:\PythonProject
 3. ⚠️ **文件读写三连坑**：`w` 模式会清空原内容、`write()` 不自动换行要自己拼 `'\n'`、`read()` 完指针到末尾再 `readlines()` 读到空；读中文文件不写 `encoding="utf-8"` 会乱码，`12-文件操作/综合案例.py` 还把输出文件名写成了 `bill_test.txt.`（末尾多个点）喵！
 4. ⚠️ **函数作用域与 None**：函数里改全局变量要先 `global` 声明（`07-函数基础/02_综合案例/模拟ATM.py` 的正确示范），忘了声明只会新建局部变量、外面根本改不到；没写 `return` 的函数返回的是 `None`，别拿它当数字继续运算喵。
 5. ⚠️ **模块包的「名单」陷阱**：`__all__` 只是导出名单，不写 `from . import` 照样导不进子模块（`19-error、mode、package综合案例/my_utils/__init__.py` 的正确写法是两行都写）；目录名带数字/连字符（如 `11-包与导入`）不能直接写进 `import`，要用 `importlib.import_module` 绕开喵。
-6. ⚠️ **编码与密码安全**：JSON 读写都要 `ensure_ascii=False` 保中文、文件读写统一 `utf-8`；`21-SQL入门和实战/pymysql入门.py` 和 `综合案例/综合案例.py` 里密码是明文写死的，推 GitHub 就泄露啦，记得改成环境变量，SQL 也别用 f-string 硬拼（防注入）喵！
+6. ⚠️ **编码与密码安全**：JSON 读写都要 `ensure_ascii=False` 保中文、文件读写统一 `utf-8`；数据库密码已改为从环境变量 `MYSQL_PASSWD` 读取（`21-SQL入门和实战/pymysql入门.py`、`综合案例/综合案例.py`、`读取数据库.py`），不再明文写死，SQL 也别用 f-string 硬拼（防注入）喵！
 
 *README 由喵喵助手整理生成，祝你学习愉快喵！✨*

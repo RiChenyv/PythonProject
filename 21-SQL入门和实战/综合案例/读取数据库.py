@@ -1,11 +1,17 @@
 import json
+import os
 
 from pymysql import connect
+
+# 密码从环境变量读取，避免明文写入代码（PowerShell 设置：$env:MYSQL_PASSWD='你的密码'）
+MYSQL_PASSWD = os.getenv("MYSQL_PASSWD")
+if not MYSQL_PASSWD:
+    raise SystemExit("未设置环境变量 MYSQL_PASSWD，请先设置后再运行：$env:MYSQL_PASSWD='你的密码'")
 
 conn = connect(
     port=3306,
     user='root',
-    password='REDACTED_PASSWORD',
+    password=MYSQL_PASSWD,
     host='localhost',
     autocommit=True,
 )

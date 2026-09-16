@@ -1,12 +1,19 @@
 """
 演示pymysql的基础操作
 """
+import os
+
 from pymysql import Connect
+
+# 密码从环境变量读取，避免明文写入代码（PowerShell 设置：$env:MYSQL_PASSWD='你的密码'）
+MYSQL_PASSWD = os.getenv("MYSQL_PASSWD")
+if not MYSQL_PASSWD:
+    raise SystemExit("未设置环境变量 MYSQL_PASSWD，请先设置后再运行：$env:MYSQL_PASSWD='你的密码'")
 
 conn = Connect(
     host="localhost",  # 主机名
     user="root",  # 用户名
-    passwd="REDACTED_PASSWORD",  # 密码
+    passwd=MYSQL_PASSWD,  # 密码（来自环境变量）
     port=3306,  # 端口
     autocommit=True,  # 自动提交
 )

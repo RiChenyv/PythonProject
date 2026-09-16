@@ -639,8 +639,9 @@ if cursor.fetchall() != ():
 > - `autocommit=True` 每条插入自动提交，不用手动 `commit()` 喵！
 > - 插入后 `SELECT` 验证数据真的进了数据库喵！
 
-> ⚠️ **安全提醒**：`pymysql入门.py` / `综合案例.py` 里是**明文密码**，
-> 如果推送到 GitHub 会被看到喵！建议改用环境变量或配置文件读取密码喵！
+> 🔐 **安全提醒**：`pymysql入门.py` / `综合案例.py` / `读取数据库.py` 的数据库密码
+> 已改为从环境变量 `MYSQL_PASSWD` 读取（`os.getenv`），代码里不含明文，推 GitHub 不泄露喵！
+> 运行前先设置：`$env:MYSQL_PASSWD='你的密码'` 喵！
 
 ---
 
@@ -703,7 +704,7 @@ if cursor.fetchall() != ():
 
 ## ⚠️ 注意事项（易踩的坑）
 
-1. ⚠️ **明文密码写死**：`pymysql入门.py`、`综合案例.py` 里 `passwd="REDACTED_PASSWORD"` 直接明文，推 GitHub 就泄露啦！改用 `os.getenv()` 环境变量或配置文件喵！
+1. 🔐 **密码已改为环境变量读取**：`pymysql入门.py`、`综合案例.py`、`读取数据库.py` 都用 `os.getenv("MYSQL_PASSWD")` 取密码，不再把明文写死在代码里，推 GitHub 也不会泄露啦！运行前先设置环境变量：`$env:MYSQL_PASSWD='你的密码'`（或在系统环境变量里配置）喵！
 2. ⚠️ **f-string 拼 SQL 有注入风险**：`综合案例.py` 用 f-string 直接拼 INSERT，字符串字段得手动加单引号（`'{record.date}'`）、数字不加，漏加引号直接语法报错喵！生产环境记得用 `%s` 参数化查询喵！
 3. ⚠️ **读 txt 要跳表头**：`File_define.py` 里用 `count` 变量跳过第一行，忘了跳会把 `日期,订单id,...` 表头当数据插进库里喵！
 4. ⚠️ **路径反斜杠转义**：`File_define.py`、`综合案例.py` 都用 `r"..."` 原始字符串写 Windows 路径，不用 `r` 前缀的话 `\t`、`\n` 会被当成转义符喵！

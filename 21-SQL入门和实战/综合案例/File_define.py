@@ -40,7 +40,7 @@ class filereader(Filereader):
         with open(self.path, 'r', encoding='utf-8') as f:
             data = json.loads(f.read())
             for line in data:
-                record = Record(line["日期"], line["订单id"], line["销售额"], line["销售省份"])
+                record = Record(line["日期"], line["订单id"], float(line["销售额"]), line["销售省份"])
                 record_list.append(record)
 
         return record_list

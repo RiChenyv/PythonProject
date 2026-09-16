@@ -7,3 +7,17 @@ __pycache__/
 
 # IDE 配置（个人习惯，不提交）
 .idea/
+
+# 打包与测试产物
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# 本地环境变量 / 凭据（不提交，含数据库密码等敏感信息）
+.env
+.env.*
+!.env.example
+
+# 本地工具目录（ZCode 客户端计划存储）
+.zcode/
